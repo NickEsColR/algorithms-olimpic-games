@@ -37,7 +37,6 @@ public class ClockMovementThread extends Thread {
 				@Override
 				public void run() {
 					oagui.setArrayListTime(time);
-					
 				}
 			});
 		}else if(algorithm == 'l') {
@@ -55,11 +54,9 @@ public class ClockMovementThread extends Thread {
 				@Override
 				public void run() {
 					oagui.setLinkedListTime(time);
-					
 				}
 			});
-		}else if(algorithm == 't') {
-			
+		}else if(algorithm == 't') {		
 			while(oagui.getRunningTree()) {	
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
@@ -71,20 +68,16 @@ public class ClockMovementThread extends Thread {
 			end = System.currentTimeMillis();
 			long time = end - start;
 			Platform.runLater(new Thread() {
-				
 				@Override
 				public void run() {
-					oagui.setTreeTime(time);
-					
+					oagui.setTreeTime(time);			
 				}
 			});
 		}else {
 			while(oagui.getRunning()) {	
 				end = System.currentTimeMillis();
 				long time = end-start;
-				
 				Platform.runLater(new Thread() {
-					
 					@Override
 					public void run(){
 						oagui.setClockTime(time);

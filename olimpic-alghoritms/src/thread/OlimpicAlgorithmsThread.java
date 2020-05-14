@@ -34,13 +34,7 @@ public class OlimpicAlgorithmsThread extends Thread {
 				Thread arrayClockThread = new ClockMovementThread(oagui,'a');
 				oagui.setRunningArrayList(true);
 				if(algorithm == 'a') {
-					Platform.runLater(new Thread() {
-						@Override
-						public void run() {
-							arrayClockThread.start();
-							
-						}
-					});
+					arrayClockThread.start();
 					try {
 						olimpic.generateArrayList(number, recursive);
 						oagui.setRunningArrayList(false);
@@ -52,13 +46,7 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else if(algorithm == 's') {
 					try {
 						olimpic.generateArrayList(number, false);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
-								arrayClockThread.start();
-								
-							}
-						});
+						arrayClockThread.start();
 						olimpic.searchArrayList(number, recursive);
 						oagui.setRunningArrayList(false);
 						
@@ -69,13 +57,8 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else {
 					try {
 						olimpic.generateArrayList(number, false);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
-								arrayClockThread.start();
-								
-							}
-						});
+						arrayClockThread.start();
+					
 						olimpic.deleteArrayList(number, recursive);
 						oagui.setRunningArrayList(false);
 						
@@ -86,14 +69,11 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}
 			}else if(athlete == 'l') {
 				Thread linkedClockThread = new ClockMovementThread(oagui,'l');
+				oagui.setRunningLinkedList(true);
 				if(algorithm == 'a') {
-					Platform.runLater(new Thread() {
-						@Override
-						public void run() {
-							
-							linkedClockThread.start();
-						}
-					});
+					
+					linkedClockThread.start();
+					
 					try {
 						olimpic.generateLinkedList(number, recursive);
 						oagui.setRunningLinkedList(false);
@@ -105,13 +85,9 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else if(algorithm == 's') {
 					try {
 						olimpic.generateLinkedList(number, recursive);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
-								
-								linkedClockThread.start();
-							}
-						});						olimpic.searchLinkedList(number, recursive);
+						
+						linkedClockThread.start();
+						olimpic.searchLinkedList(number, recursive);
 						oagui.setRunningLinkedList(false);
 				
 					} catch (InterruptedException e) {
@@ -121,13 +97,9 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else {
 					try {
 						olimpic.generateLinkedList(number, recursive);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
-								
-								linkedClockThread.start();
-							}
-						});						olimpic.deleteLinkedList(number, recursive);
+						
+						linkedClockThread.start();
+						olimpic.deleteLinkedList(number, recursive);
 						oagui.setRunningLinkedList(false);
 						
 					} catch (InterruptedException e) {
@@ -137,14 +109,11 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}
 			}else {		
 				Thread treeClockThread = new ClockMovementThread(oagui,'t');
+				oagui.setRunningTree(true);
 				if(algorithm == 'a') {
-					Platform.runLater(new Thread() {
-						@Override
-						public void run() {
+					
 							treeClockThread.start();
-							
-						}
-					});
+						
 					try {
 						olimpic.generateTree(number, recursive);
 						oagui.setRunningTree(false);
@@ -156,13 +125,7 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else if(algorithm == 's') {
 					try {
 						olimpic.generateTree(number, recursive);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
-								treeClockThread.start();
-								
-							}
-						});						olimpic.searchTree(number, recursive);
+						olimpic.searchTree(number, recursive);
 						oagui.setRunningTree(false);
 
 					} catch (InterruptedException e) {
@@ -172,13 +135,8 @@ public class OlimpicAlgorithmsThread extends Thread {
 				}else {
 					try {
 						olimpic.generateTree(number, recursive);
-						Platform.runLater(new Thread() {
-							@Override
-							public void run() {
 								treeClockThread.start();
-								
-							}
-						});						olimpic.deleteTree(number, recursive);
+						olimpic.deleteTree(number, recursive);
 						oagui.setRunningTree(false);
 				
 					} catch (InterruptedException e) {
