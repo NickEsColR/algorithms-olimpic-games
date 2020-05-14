@@ -1,14 +1,14 @@
 package thread;
-import ui.OlimpicAlghoritmsGUI;
+import ui.OlimpicAlgorithmsGUI;
 public class ClockMovementThread extends Thread {
 	
 	//relations
 	
-	private OlimpicAlghoritmsGUI oagui;
+	private OlimpicAlgorithmsGUI oagui;
 	
 	//methods
 	
-	public ClockMovementThread(OlimpicAlghoritmsGUI gui) {
+	public ClockMovementThread(OlimpicAlgorithmsGUI gui) {
 		oagui = gui;
 	}
 	

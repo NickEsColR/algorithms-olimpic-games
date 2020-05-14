@@ -14,7 +14,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		OlimpicAlghoritmsGUI oagui = new OlimpicAlghoritmsGUI();
+		OlimpicAlgorithmsGUI oagui = new OlimpicAlgorithmsGUI();
 		FXMLLoader fxmll = new FXMLLoader(getClass().getResource("menu.fxml"));
 		fxmll.setController(oagui);
 		Parent root = fxmll.load();
