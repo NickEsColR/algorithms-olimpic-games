@@ -111,6 +111,7 @@ public class Olimpic {
 					}else {
 						min = mid +1;
 					}
+					mid =(min + max)/2;
 					compare = alAthlete.get(mid);
 				}
 			}
@@ -162,7 +163,17 @@ public class Olimpic {
 		}
 	}
 	
-	public void deleteArrayList(int n, boolean recursive) {}
+	public void deleteArrayList(int n, boolean recursive) {
+		if(recursive) {
+			deleteArrayListRecursive(n);
+		}else {
+			Random random = new Random();
+			for(int i = 0; i < n;i++) {		
+				long number = random.nextLong();
+				
+			}
+		}
+	}
 	
 	public void deleteLinkedList(int n, boolean recursive) {}
 	
@@ -185,15 +196,68 @@ public class Olimpic {
 	public void deleteLinkedListRecursive(int n) {}
 	
 	public void deleteTreeRecursive(int n) {}
-	
+	/**
+	 * </b>Pos:<b> the position couldn't be the element position if the element doesn't exist<br>
+	 * @param number
+	 * @return int position of the searching element<br>
+	 */
 	public int getArrayListPositionOfInfo(long number) {
-		return 0;}
-	
-	public LinkedListInfo LinkedListInfoOfInfo(long number) {
-		return firstLEAthlete;
+		
+		int min = 0;
+		int max = alAthlete.size();
+		int mid =(min + max)/2;
+		Info compare = alAthlete.get(mid);
+		while(compare.isMyNumber(number) != 0 && min != max) {
+			if(compare.isMyNumber(number)> 0) {
+				max = mid-1;
+			}else {
+				min = mid +1;
+			}
+			mid =(min + max)/2;
+			compare = alAthlete.get(mid);
+		}
+		return mid;
+	}
+	/**
+	 * 
+	 * @param number
+	 * @return LinkedListInfo that could or don't be the searching element<br>
+	 */
+	public LinkedListInfo LinkedListInfoOfInfo(long number) {			
+			LinkedListInfo compare = firstLEAthlete;
+			while(!compare.isMyNumber(number) && compare.getNext()!= null) {
+				compare = compare.getNext();
+			}
+			if(!compare.isMyNumber(number)) {
+				compare = null;	
+			}
+		return compare;
 	}
 	
+	/**
+	 * @param number
+	 * @return TreeInfo element that could be or don't be the searching element<br>
+	 */
 	public TreeInfo getTreeInfoOfInfo(long number) {
+		TreeInfo compare = rootAbbAthlete;
+		boolean find = false;
+		while(!find) {
+			if(compare.isMyNumber(number)<0) {
+				if(compare.getRight()!= null) {
+					compare = compare.getRight();
+				}else {
+					find = true;
+				}
+			}else if(compare.isMyNumber(number) > 0) {
+				if(compare.getLeft() != null) {
+					compare = compare.getLeft();
+				}else {
+					find = true;
+				}
+			}else {
+				find = true;
+			}
+		}
 		return rootAbbAthlete;
 	}
 }
