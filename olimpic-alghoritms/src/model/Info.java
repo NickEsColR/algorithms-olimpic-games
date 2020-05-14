@@ -19,8 +19,8 @@ public class Info {
 		this.number = number;
 	}
 	
-	public boolean isMyNumber(long n) {
-		return number == n;
+	public long isMyNumber(long n) {
+		return number - n;
 	}
 
 }

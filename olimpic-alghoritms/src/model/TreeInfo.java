@@ -49,7 +49,7 @@ public class TreeInfo {
 		this.left = left;
 	}
 	
-	public boolean isMyNumber(long n) {
-		return number == n;
+	public long isMyNumber(long n) {
+		return number - n;
 	}
 }

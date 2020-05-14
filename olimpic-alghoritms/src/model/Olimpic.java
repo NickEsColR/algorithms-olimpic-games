@@ -35,7 +35,7 @@ public class Olimpic {
 
 	
 	
-	public void generateArrayList(long n, boolean recursive) {
+	public void generateArrayList(int n, boolean recursive) {
 		if(recursive) {
 			generateArrayListRecursive(n);
 		}else {
@@ -46,7 +46,7 @@ public class Olimpic {
 		}
 	}
 	
-	public void generateLinkedList(long n, boolean recursive) {
+	public void generateLinkedList(int n, boolean recursive) {
 		if(recursive) {
 			generateLinkedListRecursive(n);
 		}else {
@@ -61,7 +61,7 @@ public class Olimpic {
 		}
 	}
 	
-	public void generateTree(long n, boolean recursive) {
+	public void generateTree(int n, boolean recursive) {
 		if(recursive) {
 			generateTreeRecursive(n);
 		}else {
@@ -94,40 +94,100 @@ public class Olimpic {
 		}
 	}
 	
-	public void searchArrayList(long n, boolean recursive) {
-		
+	public void searchArrayList(int n, boolean recursive) {
+		if(recursive) {
+			searchArrayListRecursive(n, 0, alAthlete.size());
+		}else {
+			Random random = new Random();
+			int min = 0;
+			int max = alAthlete.size();
+			for(int i = 0; i < n;i++) {
+				long number = random.nextLong();
+				int mid =(min + max)/2;
+				Info compare = alAthlete.get(mid);
+				while(compare.isMyNumber(number) != 0 && min != max) {
+					if(compare.isMyNumber(number)> 0) {
+						max = mid-1;
+					}else {
+						min = mid +1;
+					}
+					compare = alAthlete.get(mid);
+				}
+			}
+		}
 	}
 	
-	public void searchLinkedList(long n, boolean recursive) {}
+	public void searchLinkedList(int n, boolean recursive) {
+		if(recursive) {
+			searchLinkedListRecursive(n, firstLEAthlete);
+		}else {
+			Random random = new Random();
+			for(int i = 0; i < n;i++) {			
+				long number = random.nextLong();
+				LinkedListInfo compare = firstLEAthlete;
+				while(!compare.isMyNumber(number) && compare.getNext()!= null) {
+					compare = compare.getNext();
+				}
+			}
+		}
+	}
 	
-	public void searchTree(long n, boolean recursive) {}
+	public void searchTree(int n, boolean recursive) {
+		if(recursive) {
+			searchTreeRecursive(n,rootAbbAthlete);
+		}else {
+			Random random = new Random();
+			for(int i = 0; i < n;i++) {			
+				long number = random.nextLong();
+				TreeInfo compare = rootAbbAthlete;
+				boolean find = false;
+				while(!find) {
+					if(compare.isMyNumber(number)<0) {
+						if(compare.getRight()!= null) {
+							compare = compare.getRight();
+						}else {
+							find = true;
+						}
+					}else if(compare.isMyNumber(number) > 0) {
+						if(compare.getLeft() != null) {
+							compare = compare.getLeft();
+						}else {
+							find = true;
+						}
+					}else {
+						find = true;
+					}
+				}
+			}
+		}
+	}
 	
-	public void deleteArrayList(long n, boolean recursive) {}
+	public void deleteArrayList(int n, boolean recursive) {}
 	
-	public void deleteLinkedList(long n, boolean recursive) {}
+	public void deleteLinkedList(int n, boolean recursive) {}
 	
-	public void deleteTree(long n, boolean recursive) {}
+	public void deleteTree(int n, boolean recursive) {}
 	
-	public void generateArrayListRecursive(long n) {}
+	public void generateArrayListRecursive(int n) {}
 	
-	public void generateLinkedListRecursive(long n) {}
+	public void generateLinkedListRecursive(int n) {}
 	
-	public void generateTreeRecursive(long n) {}
+	public void generateTreeRecursive(int n) {}
 	
-	public void searchArrayListRecursive(long n, long mid) {}
+	public void searchArrayListRecursive(int n, int min, int max) {}
 	
-	public void searchLinkedListRecursive(long n, LinkedListInfo list) {}
+	public void searchLinkedListRecursive(int n, LinkedListInfo list) {}
 	
-	public void searchTreeRecursive(long n, TreeInfo tree) {}
+	public void searchTreeRecursive(int n, TreeInfo tree) {}
 	
-	public void deleteArrayListRecursive(long n) {}
+	public void deleteArrayListRecursive(int n) {}
 	
-	public void deleteLinkedListRecursive(long n) {}
+	public void deleteLinkedListRecursive(int n) {}
 	
-	public void deleteTreeRecursive(long n) {}
+	public void deleteTreeRecursive(int n) {}
 	
-	public long getArrayListPositionOfInfo(long number) {
-		return number;}
+	public int getArrayListPositionOfInfo(long number) {
+		return 0;}
 	
 	public LinkedListInfo LinkedListInfoOfInfo(long number) {
 		return firstLEAthlete;
