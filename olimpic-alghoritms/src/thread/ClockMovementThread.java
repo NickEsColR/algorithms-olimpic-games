@@ -1,4 +1,5 @@
 package thread;
+import javafx.application.Platform;
 import ui.OlimpicAlgorithmsGUI;
 public class ClockMovementThread extends Thread {
 	
@@ -32,7 +33,13 @@ public class ClockMovementThread extends Thread {
 			}
 			end = System.currentTimeMillis();
 			long time = end -start;
-			oagui.setArrayListTime(time);
+			Platform.runLater(new Thread() {
+				@Override
+				public void run() {
+					oagui.setArrayListTime(time);
+					
+				}
+			});
 		}else if(algorithm == 'l') {
 			while(oagui.getRunningLinkedList()) {
 				try {
@@ -43,7 +50,14 @@ public class ClockMovementThread extends Thread {
 				}
 			}
 			end = System.currentTimeMillis();
-			oagui.setLinkedListTime(end-start);
+			long time = end - start;
+			Platform.runLater(new Thread() {
+				@Override
+				public void run() {
+					oagui.setLinkedListTime(time);
+					
+				}
+			});
 		}else if(algorithm == 't') {
 			
 			while(oagui.getRunningTree()) {	
@@ -55,12 +69,27 @@ public class ClockMovementThread extends Thread {
 				}
 			}
 			end = System.currentTimeMillis();
-			oagui.setTreeTime(end-start);
+			long time = end - start;
+			Platform.runLater(new Thread() {
+				
+				@Override
+				public void run() {
+					oagui.setTreeTime(time);
+					
+				}
+			});
 		}else {
 			while(oagui.getRunning()) {	
 				end = System.currentTimeMillis();
 				long time = end-start;
-				oagui.setClockTime(time);
+				
+				Platform.runLater(new Thread() {
+					
+					@Override
+					public void run(){
+						oagui.setClockTime(time);
+					}
+				});
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 				} catch (InterruptedException e) {

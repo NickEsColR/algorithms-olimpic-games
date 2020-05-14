@@ -6,6 +6,7 @@ import thread.OlimpicAlgorithmsThread;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -104,15 +105,15 @@ public class OlimpicAlgorithmsGUI {
 			int number = Integer.parseInt(txtAmount.getText());
 			btnRun.setDisable(true);
 			running = true;
-			Thread clockThread = new ClockMovementThread(this,' ');
+			Runnable clockThread = new ClockMovementThread(this,' ');
 			if(cbAdd.isSelected()) {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'a',number);
 				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'l',number);
 				Thread treeThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 't',number);
 				arrayListThread.start();
-				//linkedListThread.start();
-				//treeThread.start();
-				clockThread.start();
+				linkedListThread.start();
+				treeThread.start();
+				Platform.runLater(clockThread);
 			}else if(cbSearch.isSelected()) {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'a',number);			
 				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'l',number);	
@@ -120,16 +121,16 @@ public class OlimpicAlgorithmsGUI {
 				arrayListThread.start();
 				linkedListThread.start();
 				treeThread.start();
-				clockThread.start();
-			}else {
+				Platform.runLater(clockThread);
+				}else {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'a',number);			
 				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'l',number);	
 				Thread treeThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'t',number);	
 				arrayListThread.start();
 				linkedListThread.start();
 				treeThread.start();
-				clockThread.start();
-			}
+				Platform.runLater(clockThread);
+				}
 			
 		}catch(NumberFormatException e) {
 			alert.setContentText("Digit a valid integer in the field after 'N:'");
