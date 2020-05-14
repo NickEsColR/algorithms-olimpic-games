@@ -31,17 +31,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <CheckBox fx:id="cbAdd" layoutX="53.0" layoutY="139.0" mnemonicParsing="false" text="Add">
+      <CheckBox fx:id="cbAdd" layoutX="53.0" layoutY="139.0" mnemonicParsing="false" onAction="#addClick" text="Add">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="cbSearch" layoutX="51.0" layoutY="189.0" mnemonicParsing="false" text="Search">
+      <CheckBox fx:id="cbSearch" layoutX="51.0" layoutY="189.0" mnemonicParsing="false" onAction="#searchClick" text="Search">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="cbDelete" layoutX="52.0" layoutY="233.0" mnemonicParsing="false" text="Delete">
+      <CheckBox fx:id="cbDelete" layoutX="52.0" layoutY="233.0" mnemonicParsing="false" onAction="#deleteClick" text="Delete">
          <font>
             <Font size="18.0" />
          </font>
@@ -53,12 +53,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <CheckBox fx:id="cbIterative" layoutX="179.0" layoutY="126.0" mnemonicParsing="false" text="Iterative">
+      <CheckBox fx:id="cbIterative" layoutX="178.0" layoutY="126.0" mnemonicParsing="false" onAction="#iterativeClick" text="Iterative">
          <font>
             <Font size="18.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="cbRecursive" layoutX="179.0" layoutY="166.0" mnemonicParsing="false" text="Recursive">
+      <CheckBox fx:id="cbRecursive" layoutX="179.0" layoutY="166.0" mnemonicParsing="false" onAction="#recursiveClick" text="Recursive">
          <font>
             <Font size="18.0" />
          </font>

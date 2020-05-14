@@ -3,8 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ui.OlimpicAlgorithmsGUI;
+
 public class Olimpic {
-	
 	//relations
 	
 	private ArrayList<Info> alAthlete;
@@ -35,18 +36,19 @@ public class Olimpic {
 
 	
 	
-	public void generateArrayList(int n, boolean recursive) {
+	public void generateArrayList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			generateArrayListRecursive(n);
 		}else {
 			Random random = new Random();
 			for(int i = 0; i < n; i++) {
 				alAthlete.add(new Info(random.nextLong()));
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void generateLinkedList(int n, boolean recursive) {
+	public void generateLinkedList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			generateLinkedListRecursive(n);
 		}else {
@@ -57,11 +59,12 @@ public class Olimpic {
 				addAfter.setNext(new LinkedListInfo(random.nextLong()));
 				addAfter.getNext().setPrev(addAfter);
 				addAfter = addAfter.getNext();
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void generateTree(int n, boolean recursive) {
+	public void generateTree(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			generateTreeRecursive(n);
 		}else {
@@ -98,11 +101,12 @@ public class Olimpic {
 						}
 					}
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void searchArrayList(int n, boolean recursive) {
+	public void searchArrayList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			searchArrayListRecursive(n, 0, alAthlete.size());
 		}else {
@@ -122,11 +126,12 @@ public class Olimpic {
 					mid =(min + max)/2;
 					compare = alAthlete.get(mid);
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void searchLinkedList(int n, boolean recursive) {
+	public void searchLinkedList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			searchLinkedListRecursive(n, firstLEAthlete);
 		}else {
@@ -137,11 +142,12 @@ public class Olimpic {
 				while(!compare.isMyNumber(number) && compare.getNext()!= null) {
 					compare = compare.getNext();
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void searchTree(int n, boolean recursive) {
+	public void searchTree(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			searchTreeRecursive(n,rootAbbAthlete);
 		}else {
@@ -167,11 +173,12 @@ public class Olimpic {
 						find = true;
 					}
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void deleteArrayList(int n, boolean recursive) {
+	public void deleteArrayList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			deleteArrayListRecursive(n, 0);
 		}else {
@@ -182,11 +189,12 @@ public class Olimpic {
 				if(alAthlete.get(pos).isMyNumber(number)==0) {
 					alAthlete.remove(pos);
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void deleteLinkedList(int n, boolean recursive) {
+	public void deleteLinkedList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			deleteLinkedListRecursive(n,firstLEAthlete);
 		}else {
@@ -197,11 +205,12 @@ public class Olimpic {
 				if(compare.isMyNumber(number)) {
 					compare.getPrev().setNext(compare.getNext());
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
 	
-	public void deleteTree(int n, boolean recursive) {
+	public void deleteTree(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			deleteTreeRecursive(n,rootAbbAthlete);
 		}else {
@@ -254,6 +263,7 @@ public class Olimpic {
 						}
 					}
 				}
+				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
 		}
 	}
