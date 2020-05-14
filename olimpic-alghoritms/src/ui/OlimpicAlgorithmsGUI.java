@@ -113,12 +113,7 @@ public class OlimpicAlgorithmsGUI {
 				arrayListThread.start();
 				linkedListThread.start();
 				treeThread.start();
-				Platform.runLater(new Thread() {
-					@Override
-					public void run() {
-						clockThread.start();
-					}
-				});
+				clockThread.start();
 			}else if(cbSearch.isSelected()) {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'a',number);			
 				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'l',number);	
@@ -126,12 +121,7 @@ public class OlimpicAlgorithmsGUI {
 				arrayListThread.start();
 				linkedListThread.start();
 				treeThread.start();
-				Platform.runLater(new Thread() {
-					@Override
-					public void run() {
-						clockThread.start();
-					}
-				});
+			clockThread.start();
 				}else {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'a',number);			
 				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'l',number);	
@@ -139,12 +129,7 @@ public class OlimpicAlgorithmsGUI {
 				arrayListThread.start();
 				linkedListThread.start();
 				treeThread.start();
-				Platform.runLater(new Thread() {
-					@Override
-					public void run() {
-						clockThread.start();
-					}
-				});
+				clockThread.start();
 				}
 			
 		}catch(NumberFormatException e) {
