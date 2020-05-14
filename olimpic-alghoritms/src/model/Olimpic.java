@@ -111,20 +111,13 @@ public class Olimpic {
 			searchArrayListRecursive(n, 0, alAthlete.size());
 		}else {
 			Random random = new Random();
-			int min = 0;
-			int max = alAthlete.size();
 			for(int i = 0; i < n;i++) {
 				long number = random.nextLong();
-				int mid =(min + max)/2;
-				Info compare = alAthlete.get(mid);
-				while(compare.isMyNumber(number) != 0 && min != max) {
-					if(compare.isMyNumber(number)> 0) {
-						max = mid-1;
-					}else {
-						min = mid +1;
-					}
-					mid =(min + max)/2;
-					compare = alAthlete.get(mid);
+				int pos = 0;
+				Info compare = alAthlete.get(pos);
+				while(!compare.isMyNumber(number) && alAthlete.get(pos+1)!= null) {
+					pos++;
+					compare = alAthlete.get(pos);
 				}
 				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 			}
@@ -186,7 +179,7 @@ public class Olimpic {
 			for(int i = 0; i < n;i++) {		
 				long number = random.nextLong();
 				int pos = getArrayListPositionOfInfo(number);
-				if(alAthlete.get(pos).isMyNumber(number)==0) {
+				if(alAthlete.get(pos).isMyNumber(number)) {
 					alAthlete.remove(pos);
 				}
 				Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
@@ -292,20 +285,13 @@ public class Olimpic {
 	 */
 	public int getArrayListPositionOfInfo(long number) {
 		
-		int min = 0;
-		int max = alAthlete.size();
-		int mid =(min + max)/2;
-		Info compare = alAthlete.get(mid);
-		while(compare.isMyNumber(number) != 0 && min != max) {
-			if(compare.isMyNumber(number)> 0) {
-				max = mid-1;
-			}else {
-				min = mid +1;
-			}
-			mid =(min + max)/2;
-			compare = alAthlete.get(mid);
+		int pos = 0;
+		Info compare = alAthlete.get(pos);
+		while(!compare.isMyNumber(number)&& alAthlete.get(pos+1)!=null) {
+			pos++;
+			compare = alAthlete.get(pos);
 		}
-		return mid;
+		return pos;
 	}
 	/**
 	 * 
