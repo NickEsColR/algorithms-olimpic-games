@@ -1,6 +1,10 @@
 package ui;
+import model.Info;
 import model.Olimpic;
 import thread.OlimpicAlgorithmsThread;
+
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -86,19 +90,26 @@ public class OlimpicAlgorithmsGUI {
 			alert.showAndWait();
 		}else {
 		try {
+			olimpic.setAlAthlete(new ArrayList<Info>());
+			olimpic.setFirstLEAthlete(null);
+			olimpic.setRootAbbAthlete(null);
+			txtArrayListClock.setText(" ");
+			txtLinkedListClock.setText(" ");
+			txtABBClock.setText(" ");
 			int number = Integer.parseInt(txtAmount.getText());
 			btnRun.setDisable(true);
 			running = true;
-		if(cbAdd.isSelected()) {
-			Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'a',number);			
-			arrayListThread.start();
-		}else if(cbSearch.isSelected()) {
-			Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'a',number);			
-			arrayListThread.start();
-		}else {
-			Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'a',number);			
-			arrayListThread.start();
-		}
+			if(cbAdd.isSelected()) {
+				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'a',number);			
+				arrayListThread.start();
+			}else if(cbSearch.isSelected()) {
+				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'a',number);			
+				arrayListThread.start();
+			}else {
+				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'a',number);			
+				arrayListThread.start();
+			}
+			
 		}catch(NumberFormatException e) {
 			alert.setContentText("Digit a valid integer in the field after 'N:'");
 			alert.showAndWait();
@@ -153,18 +164,30 @@ public class OlimpicAlgorithmsGUI {
     	long milis = time - second;
     	long minutes = second/ 60;
     	txtArrayListClock.setText(minutes + " : "+second+" : "+milis);
+    	if(!runningLinkedList && !runningTree) {
+    		running = false;
+    		btnRun.setDisable(false);
+    	}
     }
     public void setLinkedListTime(long time) {
     	long second = time / 1000;
     	long milis = time - second;
     	long minutes = second/ 60;
     	txtLinkedListClock.setText(minutes + " : "+second+" : "+milis);
+    	if(!runningArrayList && !runningTree) {
+    		running = false;
+    		btnRun.setDisable(false);
+    	}
     }
     public void setTreeTime(long time) {
     	long second = time / 1000;
     	long milis = time - second;
     	long minutes = second/ 60;
     	txtABBClock.setText(minutes + " : "+second+" : "+milis);
+    	if(!runningLinkedList && !runningArrayList) {
+    		running = false;
+    		btnRun.setDisable(false);
+    	}
     }
     public void setRunningArrayList(boolean r) {
     	runningArrayList = r;
@@ -184,4 +207,6 @@ public class OlimpicAlgorithmsGUI {
     public boolean getRunningTree() {
     	return runningTree;
     }
+    
+    
 }

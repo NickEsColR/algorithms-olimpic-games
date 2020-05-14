@@ -124,6 +124,18 @@ public class Olimpic {
 		}
 	}
 	
+	public void setAlAthlete(ArrayList<Info> alAthlete) {
+		this.alAthlete = alAthlete;
+	}
+
+	public void setFirstLEAthlete(LinkedListInfo firstLEAthlete) {
+		this.firstLEAthlete = firstLEAthlete;
+	}
+
+	public void setRootAbbAthlete(TreeInfo rootAbbAthlete) {
+		this.rootAbbAthlete = rootAbbAthlete;
+	}
+
 	public void searchLinkedList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
 			searchLinkedListRecursive(n, firstLEAthlete);
