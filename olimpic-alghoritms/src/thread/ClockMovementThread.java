@@ -20,10 +20,9 @@ public class ClockMovementThread extends Thread {
 	@Override
 	public void run() {
 		long start = System.currentTimeMillis();
+		long end = System.currentTimeMillis();
 		if(algorithm == 'a') {
-			long end = System.currentTimeMillis();
 			while(oagui.getRunningArrayList()) {	
-				end = System.currentTimeMillis();
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 				} catch (InterruptedException e) {
@@ -31,11 +30,11 @@ public class ClockMovementThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-			oagui.setArrayListTime(end-start);
+			end = System.currentTimeMillis();
+			long time = end -start;
+			oagui.setArrayListTime(time);
 		}else if(algorithm == 'l') {
-			long end = System.currentTimeMillis();
 			while(oagui.getRunningLinkedList()) {
-				end = System.currentTimeMillis();
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 				} catch (InterruptedException e) {
@@ -43,11 +42,11 @@ public class ClockMovementThread extends Thread {
 					e.printStackTrace();
 				}
 			}
+			end = System.currentTimeMillis();
 			oagui.setLinkedListTime(end-start);
 		}else if(algorithm == 't') {
-			long end = System.currentTimeMillis();
+			
 			while(oagui.getRunningTree()) {	
-				end = System.currentTimeMillis();
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 				} catch (InterruptedException e) {
@@ -55,11 +54,13 @@ public class ClockMovementThread extends Thread {
 					e.printStackTrace();
 				}
 			}
+			end = System.currentTimeMillis();
 			oagui.setTreeTime(end-start);
 		}else {
 			while(oagui.getRunning()) {	
-				long end = System.currentTimeMillis();
-				oagui.setClockTime(end-start);
+				end = System.currentTimeMillis();
+				long time = end-start;
+				oagui.setClockTime(time);
 				try {
 					Thread.sleep(OlimpicAlgorithmsGUI.SLEEP);
 				} catch (InterruptedException e) {

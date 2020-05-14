@@ -50,7 +50,7 @@ public class Olimpic {
 	
 	public void generateLinkedList(int n, boolean recursive) throws InterruptedException {
 		if(recursive) {
-			generateLinkedListRecursive(n);
+			generateLinkedListRecursive(n,firstLEAthlete);
 		}else {
 			Random random = new Random();
 			firstLEAthlete = new LinkedListInfo(random.nextLong());
@@ -65,10 +65,10 @@ public class Olimpic {
 	}
 	
 	public void generateTree(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			generateTreeRecursive(n);
+			generateTreeRecursive(n,rootAbbAthlete,random.nextLong());
 		}else {
-			Random random = new Random();
 			rootAbbAthlete = new TreeInfo(random.nextLong());
 			for(int i = 1; i < n; i++) {
 				long number = random.nextLong();
@@ -107,10 +107,10 @@ public class Olimpic {
 	}
 	
 	public void searchArrayList(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			searchArrayListRecursive(n, 0, alAthlete.size());
+			searchArrayListRecursive( 0,random.nextLong(),n);
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {
 				long number = random.nextLong();
 				int pos = 0;
@@ -137,10 +137,10 @@ public class Olimpic {
 	}
 
 	public void searchLinkedList(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			searchLinkedListRecursive(n, firstLEAthlete);
+			searchLinkedListRecursive(n, firstLEAthlete,random.nextLong());
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {			
 				long number = random.nextLong();
 				LinkedListInfo compare = firstLEAthlete;
@@ -153,10 +153,10 @@ public class Olimpic {
 	}
 	
 	public void searchTree(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			searchTreeRecursive(n,rootAbbAthlete);
+			searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {			
 				long number = random.nextLong();
 				TreeInfo compare = rootAbbAthlete;
@@ -184,10 +184,10 @@ public class Olimpic {
 	}
 	
 	public void deleteArrayList(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			deleteArrayListRecursive(n, 0);
+			deleteArrayListRecursive(n, 0,random.nextLong());
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {		
 				long number = random.nextLong();
 				int pos = getArrayListPositionOfInfo(number);
@@ -200,10 +200,10 @@ public class Olimpic {
 	}
 	
 	public void deleteLinkedList(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			deleteLinkedListRecursive(n,firstLEAthlete);
+			deleteLinkedListRecursive(n,firstLEAthlete,random.nextLong());
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {		
 				long number = random.nextLong();
 				LinkedListInfo compare = LinkedListInfoOfInfo(number);
@@ -216,10 +216,10 @@ public class Olimpic {
 	}
 	
 	public void deleteTree(int n, boolean recursive) throws InterruptedException {
+		Random random = new Random();
 		if(recursive) {
-			deleteTreeRecursive(n,rootAbbAthlete);
+			deleteTreeRecursive(n,rootAbbAthlete,random.nextLong());
 		}else {
-			Random random = new Random();
 			for(int i = 0; i < n;i++) {		
 				long number = random.nextLong();
 				TreeInfo compare = getTreeInfoOfInfo(number);
@@ -273,23 +273,233 @@ public class Olimpic {
 		}
 	}
 	
-	public void generateArrayListRecursive(int n) {}
+	public void generateArrayListRecursive(int n) {
+		Random random = new Random();
+		if(n != 0) {
+			alAthlete.add(new Info(random.nextLong()));
+			n--;
+			generateArrayListRecursive(n);
+		}
+	}
 	
-	public void generateLinkedListRecursive(int n) {}
+	public void generateLinkedListRecursive(int n,LinkedListInfo actual) {
+		Random random = new Random();
+		if(n!=0) {
+			long number = random.nextLong();
+			if(firstLEAthlete == null) {
+				firstLEAthlete = new LinkedListInfo(number);
+			}else {
+				if(actual.getNext() == null) {
+					actual.setNext(new LinkedListInfo(number));
+					actual.getNext().setPrev(actual);
+					n--;
+					generateLinkedListRecursive(n,actual.getNext());
+				}else {
+					generateLinkedListRecursive(n, actual.getNext());
+				}
+			}
+		}
+	}
 	
-	public void generateTreeRecursive(int n) {}
+	public void generateTreeRecursive(int n,TreeInfo actual,long number) {
+		Random random = new Random();
+		if(n != 0) {
+			
+			if(rootAbbAthlete == null) {
+				rootAbbAthlete = new TreeInfo(number);
+			}else {
+				if(actual.isMyNumber(number)<0) {
+					if(actual.getRight()!=null) {
+						actual.getRight();
+					}else {
+						actual.setRight(new TreeInfo(number));
+						actual.getRight().setFather(actual);
+						n--;
+						actual = rootAbbAthlete;
+						number = random.nextLong();
+					}
+				}else {
+					if(actual.getLeft()!=null) {
+						actual.getLeft();
+					}else {
+						actual.setLeft(new TreeInfo(number));
+						actual.getLeft().setFather(actual);
+						n--;
+						actual = rootAbbAthlete;
+						number = random.nextLong();
+					}
+					
+				}
+			}
+			generateTreeRecursive(n,actual,number);
+		}
+	}
 	
-	public void searchArrayListRecursive(int n, int min, int max) {}
+	public void searchArrayListRecursive(int pos, long number, int n) {
+		if(n != 0) {
+			Random random = new Random();
+			if(alAthlete.get(pos).isMyNumber(number)) {
+				n--;
+				searchArrayListRecursive(0,random.nextLong(),n);
+			}else {
+				pos++;
+				searchArrayListRecursive(pos,number,n);
+			}
+		}
+	}
 	
-	public void searchLinkedListRecursive(int n, LinkedListInfo list) {}
 	
-	public void searchTreeRecursive(int n, TreeInfo tree) {}
+	public void searchLinkedListRecursive(int n, LinkedListInfo list,long number) {
+		if(n != 0) {
+			Random random = new Random();
+			if(list.isMyNumber(number)) {
+				n--;
+				searchLinkedListRecursive(n,firstLEAthlete,random.nextLong());
+			}else {
+				if(list.getNext()!=null) {
+					searchLinkedListRecursive(n,list.getNext(),number);
+				}else {
+					n--;
+					searchLinkedListRecursive(n,firstLEAthlete,random.nextLong());
+				}
+			}
+		}
+	}
 	
-	public void deleteArrayListRecursive(int n,int pos) {}
+	public void searchTreeRecursive(int n, TreeInfo tree,long number) {
+		if(n != 0) {
+			Random random = new Random();
+			if(tree.isMyNumber(number)<0) {
+				if(tree.getRight()!=null) {
+					searchTreeRecursive(n,tree.getRight(),number);
+				}else {
+					n--;
+					searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+				}
+			}else if(tree.isMyNumber(number)==0) {
+				n--;
+				searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+			}else {
+				if(tree.getLeft()!=null) {
+					searchTreeRecursive(n,tree.getLeft(),number);
+				}else {
+					n--;
+					searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+				}
+			}
+		}
+	}
 	
-	public void deleteLinkedListRecursive(int n,LinkedListInfo compare) {}
+	public void deleteArrayListRecursive(int n,int pos, long number) {
+		if(n != 0) {
+			Random random = new Random();
+			
+			if(alAthlete.get(pos).isMyNumber(number)) {
+				alAthlete.remove(pos);
+				n--;
+				searchArrayListRecursive(0,random.nextLong(),n);
+			}else if(pos<alAthlete.size()){
+				pos++;
+				searchArrayListRecursive(pos,number,n);
+			}else {
+				n--;
+				searchArrayListRecursive(0,random.nextLong(),n);
+			}
+		}
+	}
 	
-	public void deleteTreeRecursive(int n,TreeInfo compare) {}
+	public void deleteLinkedListRecursive(int n,LinkedListInfo compare,long number) {
+		if(n != 0) {
+			Random random = new Random();
+			if(compare.isMyNumber(number)) {
+				if(compare.equals(firstLEAthlete)) {
+					compare = firstLEAthlete.getNext();
+					compare.setPrev(null);
+					firstLEAthlete = compare;
+				}else {
+					compare.getPrev().setNext(compare.getNext());
+					compare.getNext().setPrev(compare.getPrev());
+				}
+				n--;
+				deleteLinkedListRecursive(n,firstLEAthlete,random.nextLong());
+			}else {
+				if(compare.getNext()!=null) {
+					deleteLinkedListRecursive(n,compare.getNext(),number);
+				}else {
+					n--;
+					deleteLinkedListRecursive(n,firstLEAthlete,random.nextLong());
+				}
+			}
+		}
+	}
+	
+	public void deleteTreeRecursive(int n,TreeInfo compare,long number) {
+		if(n != 0) {
+			Random random = new Random();
+			if(compare.isMyNumber(number)<0) {
+				if(compare.getRight()!=null) {
+					searchTreeRecursive(n,compare.getRight(),number);
+				}else {
+					n--;
+					searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+				}
+			}else if(compare.isMyNumber(number)==0) {
+				if(compare.getRight() == null && compare.getLeft()==null) {
+					if(compare.getFather().getLeft().equals(compare)) {
+						compare.getFather().setLeft(null);
+					}else {
+						compare.getFather().setRight(null);
+					}
+				}else if(compare.getLeft() != null && compare.getRight() == null) {
+					if(compare.getFather().getLeft().equals(compare)) {
+						compare.getFather().setLeft(compare.getLeft());
+					}else {
+						compare.getFather().setRight(compare.getLeft());
+					}
+				}else if(compare.getRight() != null && compare.getLeft() == null) {
+					if(compare.getFather().getLeft().equals(compare)) {
+						compare.getFather().setLeft(compare.getLeft());
+					}else {
+						compare.getFather().setRight(compare.getLeft());
+					}
+				}else {
+					if(compare.getFather().getLeft().equals(compare)) {
+						TreeInfo change = compare.getRight();
+						while(change.getLeft() !=null) {
+							change = change.getLeft();
+						}
+						change.getFather().setLeft(change.getRight());
+						change.setLeft(compare.getLeft());
+						change.setRight(compare.getRight());
+						compare.getFather().setLeft(change);
+						change.setFather(compare.getFather());
+						compare.setFather(null);
+					}else {
+						TreeInfo change = compare.getLeft();
+						while(change.getRight() !=null) {
+							change = change.getRight();
+						}
+						change.getFather().setLeft(change.getRight());
+						change.setLeft(compare.getLeft());
+						change.setRight(compare.getRight());
+						compare.getFather().setLeft(change);
+						change.setFather(compare.getFather());
+						compare.setFather(null);
+					}
+				}
+			
+				n--;
+				searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+			}else {
+				if(compare.getLeft()!=null) {
+					searchTreeRecursive(n,compare.getLeft(),number);
+				}else {
+					n--;
+					searchTreeRecursive(n,rootAbbAthlete,random.nextLong());
+				}
+			}
+		}
+	}
 	/**
 	 * </b>Pos:<b> the position couldn't be the element position if the element doesn't exist<br>
 	 * @param number

@@ -1,6 +1,7 @@
 package ui;
 import model.Info;
 import model.Olimpic;
+import thread.ClockMovementThread;
 import thread.OlimpicAlgorithmsThread;
 
 import java.util.ArrayList;
@@ -73,6 +74,10 @@ public class OlimpicAlgorithmsGUI {
 	//methods
 	public OlimpicAlgorithmsGUI() {
 		olimpic = new Olimpic();
+		running = false;
+		runningArrayList = false;
+		runningLinkedList = false;
+		runningTree = false;
 	}
 	
 	@FXML
@@ -99,15 +104,31 @@ public class OlimpicAlgorithmsGUI {
 			int number = Integer.parseInt(txtAmount.getText());
 			btnRun.setDisable(true);
 			running = true;
+			Thread clockThread = new ClockMovementThread(this,' ');
 			if(cbAdd.isSelected()) {
-				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'a',number);			
+				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'a',number);
+				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 'l',number);
+				Thread treeThread = new OlimpicAlgorithmsThread(olimpic,this,'a',cbRecursive.isSelected(), 't',number);
 				arrayListThread.start();
+				//linkedListThread.start();
+				//treeThread.start();
+				clockThread.start();
 			}else if(cbSearch.isSelected()) {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'a',number);			
+				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'l',number);	
+				Thread treeThread = new OlimpicAlgorithmsThread(olimpic,this,'s',cbRecursive.isSelected(),'t',number);	
 				arrayListThread.start();
+				linkedListThread.start();
+				treeThread.start();
+				clockThread.start();
 			}else {
 				Thread arrayListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'a',number);			
+				Thread linkedListThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'l',number);	
+				Thread treeThread = new OlimpicAlgorithmsThread(olimpic,this,'d',cbRecursive.isSelected(),'t',number);	
 				arrayListThread.start();
+				linkedListThread.start();
+				treeThread.start();
+				clockThread.start();
 			}
 			
 		}catch(NumberFormatException e) {
