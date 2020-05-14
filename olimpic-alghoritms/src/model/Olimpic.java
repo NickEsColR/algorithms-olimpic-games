@@ -79,14 +79,22 @@ public class Olimpic {
 							addAfter.getLeft();
 						}
 					}else {
-						if(addAfter.getRight() == null && number > addAfter.getNumber()) {
-							addAfter.setRight(new TreeInfo(number));
-							search = false;
-						}else if(addAfter.getRight() == null && number <= addAfter.getNumber()) {
-							addAfter.setLeft(new TreeInfo(number));
-							search = false;
-						}else {
-							addAfter = addAfter.getRight() != null ? addAfter.getRight() : addAfter.getLeft();
+						if( number > addAfter.getNumber()) {
+							if(addAfter.getRight() == null) {
+								addAfter.setRight(new TreeInfo(number));
+								addAfter.getRight().setFather(addAfter);
+								search = false;
+							}else {
+								addAfter = addAfter.getRight();
+							}
+						}else if( number <= addAfter.getNumber()) {
+							if(addAfter.getLeft() == null) {
+								addAfter.setLeft(new TreeInfo(number));
+								addAfter.getLeft().setFather(addAfter);
+								search = false;
+							}else {
+								addAfter = addAfter.getLeft();
+							}
 						}
 					}
 				}
@@ -165,19 +173,90 @@ public class Olimpic {
 	
 	public void deleteArrayList(int n, boolean recursive) {
 		if(recursive) {
-			deleteArrayListRecursive(n);
+			deleteArrayListRecursive(n, 0);
 		}else {
 			Random random = new Random();
 			for(int i = 0; i < n;i++) {		
 				long number = random.nextLong();
-				
+				int pos = getArrayListPositionOfInfo(number);
+				if(alAthlete.get(pos).isMyNumber(number)==0) {
+					alAthlete.remove(pos);
+				}
 			}
 		}
 	}
 	
-	public void deleteLinkedList(int n, boolean recursive) {}
+	public void deleteLinkedList(int n, boolean recursive) {
+		if(recursive) {
+			deleteLinkedListRecursive(n,firstLEAthlete);
+		}else {
+			Random random = new Random();
+			for(int i = 0; i < n;i++) {		
+				long number = random.nextLong();
+				LinkedListInfo compare = LinkedListInfoOfInfo(number);
+				if(compare.isMyNumber(number)) {
+					compare.getPrev().setNext(compare.getNext());
+				}
+			}
+		}
+	}
 	
-	public void deleteTree(int n, boolean recursive) {}
+	public void deleteTree(int n, boolean recursive) {
+		if(recursive) {
+			deleteTreeRecursive(n,rootAbbAthlete);
+		}else {
+			Random random = new Random();
+			for(int i = 0; i < n;i++) {		
+				long number = random.nextLong();
+				TreeInfo compare = getTreeInfoOfInfo(number);
+				if(compare.isMyNumber(number)==0) {
+					if(compare.getRight() == null && compare.getLeft()==null) {
+						if(compare.getFather().getLeft().equals(compare)) {
+							compare.getFather().setLeft(null);
+						}else {
+							compare.getFather().setRight(null);
+						}
+					}else if(compare.getLeft() != null && compare.getRight() == null) {
+						if(compare.getFather().getLeft().equals(compare)) {
+							compare.getFather().setLeft(compare.getLeft());
+						}else {
+							compare.getFather().setRight(compare.getLeft());
+						}
+					}else if(compare.getRight() != null && compare.getLeft() == null) {
+						if(compare.getFather().getLeft().equals(compare)) {
+							compare.getFather().setLeft(compare.getLeft());
+						}else {
+							compare.getFather().setRight(compare.getLeft());
+						}
+					}else {
+						if(compare.getFather().getLeft().equals(compare)) {
+							TreeInfo change = compare.getRight();
+							while(change.getLeft() !=null) {
+								change = change.getLeft();
+							}
+							change.getFather().setLeft(change.getRight());
+							change.setLeft(compare.getLeft());
+							change.setRight(compare.getRight());
+							compare.getFather().setLeft(change);
+							change.setFather(compare.getFather());
+							compare.setFather(null);
+						}else {
+							TreeInfo change = compare.getLeft();
+							while(change.getRight() !=null) {
+								change = change.getRight();
+							}
+							change.getFather().setLeft(change.getRight());
+							change.setLeft(compare.getLeft());
+							change.setRight(compare.getRight());
+							compare.getFather().setLeft(change);
+							change.setFather(compare.getFather());
+							compare.setFather(null);
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	public void generateArrayListRecursive(int n) {}
 	
@@ -191,11 +270,11 @@ public class Olimpic {
 	
 	public void searchTreeRecursive(int n, TreeInfo tree) {}
 	
-	public void deleteArrayListRecursive(int n) {}
+	public void deleteArrayListRecursive(int n,int pos) {}
 	
-	public void deleteLinkedListRecursive(int n) {}
+	public void deleteLinkedListRecursive(int n,LinkedListInfo compare) {}
 	
-	public void deleteTreeRecursive(int n) {}
+	public void deleteTreeRecursive(int n,TreeInfo compare) {}
 	/**
 	 * </b>Pos:<b> the position couldn't be the element position if the element doesn't exist<br>
 	 * @param number
