@@ -1,6 +1,5 @@
 package thread;
 import ui.OlimpicAlgorithmsGUI;
-import javafx.application.Platform;
 import model.Olimpic;
 public class OlimpicAlgorithmsThread extends Thread {
 	
